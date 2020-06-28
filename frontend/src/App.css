@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 400 1.5em Ubuntu, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font: 500 Ubuntu, sans-serif;
+}
+
+input, button {
+  font: 400 .7em Ubuntu, sans-serif;
+}
