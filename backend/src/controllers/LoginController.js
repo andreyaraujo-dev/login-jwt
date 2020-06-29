@@ -19,7 +19,8 @@ module.exports = {
           expiresIn: 300 //expira em 5 min
         });
 
-        return res.json({ auth: true, token: token });
+        
+        return res.json({ userId, auth: true, token: token });
       });
     } catch (error) {
       return res.json({message: 'Unable to login, try again!', errro: error});

@@ -11,7 +11,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { authenticated, handleLogin } = useContext(Context);
+  const { handleLogin } = useContext(Context);
 
   return (
     <div className="container">
@@ -22,11 +22,12 @@ export default function Login() {
         <div className="container-login">
           <h1>Welcome back!</h1>
           <h2>Log in to access the system.</h2>
-          <form onSubmit={() => handleLogin(username, password)} >
+          <form onSubmit={(e) => handleLogin(e, username, password)} >
             <input 
               type="text" 
               className="input-form" 
               placeholder="Username"
+              required
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
@@ -34,6 +35,7 @@ export default function Login() {
               type="password" 
               className="input-form" 
               placeholder="Password"
+              required
               value={password}
               onChange={e => setPassword(e.target.value)}
             />

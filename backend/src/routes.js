@@ -8,9 +8,9 @@ const routes = express.Router();
 
 routes.get('/', HomeController.index);
 
-routes.post('/login', LoginController.index);
+routes.post('/auth', LoginController.index);
 
-routes.get('/perfil', verifyJWT, UserController.perfil);
+routes.get('/user', verifyJWT, UserController.perfil);
 routes.post('/register', UserController.store);
 
 module.exports = routes;

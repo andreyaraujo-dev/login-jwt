@@ -4,6 +4,7 @@ import api from '../../services/api';
 import history from '../../history';
 
 export default function useAuth() {
+
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -11,29 +12,40 @@ export default function useAuth() {
     const token = localStorage.getItem('token');
 
     if(token) {
-      api.default.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
       setAuthenticated(true);
-
-      setLoading(false);
     }
+    
+    setLoading(false);
   }, []);
 
-  async function handleLogin(username, password) {
+  async function handleLogin(e, username, password) {
+    e.preventDefault();
+
     const formData = {
       username,
       password
     }
-    const { data: { token } } = await api.post('/login', formData);
 
-    localStorage.setItem('token', JSON.stringify(token));
-    api.default.headers.Authorization = `Bearer ${token}`;
-    setAuthenticated(true);
-    history.push('/perfil');
+    try {
+      const { data: { token, userId } } = await api.post('/auth', formData);
+
+      if (!token) return alert('Usuário ou senha inválidas, tente novamente!')
+
+      localStorage.setItem('token', JSON.stringify(token));
+      localStorage.setItem('userId', JSON.stringify(userId));
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+      setAuthenticated(true);
+      history.push('/perfil');
+    } catch (error) {
+      return alert(`Erro ao realizar login, Erro: ${error}`);
+    }
+    
   }
 
   function handleLogout() {
     setAuthenticated(false);
-    localStorage.removeItem('token');
+    localStorage.clear();
     api.defaults.headers.Authorization = undefined;
     history.push('/login');
   }

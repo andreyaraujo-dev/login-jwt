@@ -18,10 +18,9 @@ module.exports = {
   },
 
   async perfil(req, res) {
-    const idUser = req.userId;
-
+    const id  = req.headers.userid;
     try {
-      const [user] = await connection('users').select('*').where('id', 1);
+      const [user] = await connection('users').where('id', id).select('*');
 
       if (!user) return res.json({ error: 'User dos not exists' });
 

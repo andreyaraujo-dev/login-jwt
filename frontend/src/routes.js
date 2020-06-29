@@ -10,9 +10,9 @@ import Perfil from './pages/Perfil'
 function CustomRoute({ isPrivate, ...rest }) {
   const { loading, authenticated } = useContext(Context);
 
-  // if (loading) {
-  //   return <h1>Loading...</h1>;
-  // }
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (isPrivate && !authenticated) {
     return <Redirect to="/login" />
